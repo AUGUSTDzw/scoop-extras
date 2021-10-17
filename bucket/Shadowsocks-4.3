@@ -1,0 +1,34 @@
+{
+    "version": "4.3.3.170",
+    "description": "A secure socks5 proxy, designed to protect your Internet traffic.",
+    "homepage": "https://github.com/shadowsocks/shadowsocks-windows",
+    "license": "GPL-3.0-only",
+    "url": "https://github.com/shadowsocks/shadowsocks-windows/releases/download/4.3.3.0/Shadowsocks-4.3.3.170.zip",
+    "hash": "sha512:5dc8ef2d22e3771acbb9e5e0ef4f3206a49c27ac96b620b7fe4d8928a00d7e82c4e0cf272d62657e2921f009ca7e498655969d6101b25f44a7e27e7e3dd7b6a2",
+    "pre_install": [
+        "function CreateFile ($name, $value = $null) {",
+        "    if (!(Test-Path \"$persist_dir\\$name\")) {",
+        "        Set-Content \"$dir\\$name\" $value -Encoding Ascii",
+        "    }",
+        "}",
+        "'gui-config.json', 'statistics-config.json' | ForEach-Object { CreateFile $_ '{}' }",
+        "'pac.txt', 'user-rule.txt' | ForEach-Object { CreateFile $_ }"
+    ],
+    "bin": "Shadowsocks.exe",
+    "shortcuts": [
+        [
+            "shadowsocks.exe",
+            "Shadowsocks"
+        ]
+    ],
+    "persist": [
+        "gui-config.json",
+        "statistics-config.json",
+        "pac.txt",
+        "user-rule.txt"
+    ],
+    "checkver": {
+        "github": "https://github.com/shadowsocks/shadowsocks-windows",
+        "regex": "Shadowsocks-([\\d.]+)\\.zip"
+    }
+}
